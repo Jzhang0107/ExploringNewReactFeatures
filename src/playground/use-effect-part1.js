@@ -4,7 +4,9 @@ import reportWebVitals from './reportWebVitals';
 
 const NoteApp = () =>
 {
-    const [notes, setNotes] = useState([]);
+    const notesData = JSON.parse(localStorage.getItem('notes'));
+
+    const [notes, setNotes] = useState(notesData ? notesData : []);
     const [noteTitle, setNoteTitle] = useState('');
     const [noteBody, setNoteBody] = useState('');
 
@@ -30,19 +32,10 @@ const NoteApp = () =>
         setNotes(notes.filter((note) => note.noteTitle !== noteToRemove));
     }
 
-    // useEffect dependency, function only runs if variable change (tracked in array as second param)
-    // if array is empty, function will only run once on load, otherwise can set to track a var
-    useEffect(() => 
-    {
-        const notesData = JSON.parse(localStorage.getItem('notes'));
-        setNotes(notesData ? notesData : []);
-        console.log("This only runs once");
-    }, [])
-
     useEffect(() =>
     {
         localStorage.setItem('notes', JSON.stringify(notes))
-    }, [notes])
+    })
 
     return(
         <div>
