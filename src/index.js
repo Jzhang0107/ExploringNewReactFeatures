@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState }from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const App = () =>
+{
+  const [count, setCount] = useState(10);
+
+  const increment = () =>
+  {
+    setCount(count + 1);
+  }
+
+  return(
+    <div>
+      <h1>Regina is cute!</h1>
+      <p>The current count is {count}</p>
+      <button onClick={increment}>+1 Increment</button>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
