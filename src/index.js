@@ -6,26 +6,15 @@ const App = (props) =>
 {
   const [count, setCount] = useState(props.count ? props.count : 0);
 
-  const increment = () =>
-  {
-    setCount(count + 1);
-  }
-  const decrement = () =>
-  {
-    setCount(count - 1);
-  }
-  const reset = () =>
-  {
-    setCount(props.count ? props.count : 0);
-  }
-
+  const [text, setText] = useState(props.text ? props.text : 'count');
   return(
     <div>
-      <h1>Regina is cute</h1>
-      <p>The current count is {count}</p>
-      <button onClick={increment}>+1</button>
-      <button onClick={decrement}>-1</button>
-      <button onClick={reset}>Reset</button>
+      <p>The current {text} is {count}</p>
+      <button onClick={() => setCount(count + 1)}>+1</button>
+      <button onClick={() => setCount(count - 1)}>-1</button>
+      <button onClick={() => setCount(props.count ? props.count : 0)}>Reset</button>
+      <br />
+      <input value={text} onChange={(e) => setText(e.target.value)}/>
     </div>
   );
 }
