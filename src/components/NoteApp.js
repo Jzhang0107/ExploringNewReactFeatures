@@ -2,16 +2,11 @@ import React, {useEffect, useReducer} from 'react';
 import notesReducer from '../reducers/notes';
 import NoteList from './NoteList';
 import AddNoteForm from './AddNoteForm';
+import NotesContext from '../context/notes-context';
 
 const NoteApp = () =>
 {
     const [notes, notesDispatch] = useReducer(notesReducer, [])
-
-    const removeNote = (noteToRemove) =>
-    {
-        console.log("Note removed", noteToRemove);
-        notesDispatch({type: 'removeNote', noteTitle: noteToRemove});
-    }
 
     // useEffect dependency, function only runs if variable change (tracked in array as second param)
     // if array is empty, function will only run once on load, otherwise can set to track a var
@@ -28,14 +23,12 @@ const NoteApp = () =>
     }, [notes])
 
     return(
-        <div>
+        <NotesContext.Provider value={{notes, notesDispatch}}>
             <h1>Lists</h1>
-            <NoteList notes={notes} removeNote={removeNote} />
+            <NoteList />
             <br />
-            <AddNoteForm 
-                notesDispatch={notesDispatch} 
-            />
-        </div>
+            <AddNoteForm />
+        </NotesContext.Provider>
     )
 }
 
