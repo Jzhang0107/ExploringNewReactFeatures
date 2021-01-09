@@ -18,14 +18,14 @@ const AddNoteForm = () =>
     }
 
     return (
-        <div>
+        <>
             <form onSubmit={addNotes}>
                 <input placeholder='Note Title' value={noteTitle} onChange={(e) => setNoteTitle(e.target.value)} />
                 <br />
                 <textarea placeholder='Body' value={noteBody} onChange={(e) => setNoteBody(e.target.value)} />
                 <button>Add item</button>
             </form>
-        </div>
+        </>
     )
 }
 
