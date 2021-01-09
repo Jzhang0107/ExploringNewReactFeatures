@@ -1,10 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
 const NoteApp = () =>
 {
-    const [notes, setNotes] = useState([]);
+    const notesReducer = (state, action) =>
+    {
+        switch(action.type)
+        {
+            default:
+                return state
+
+            case 'populateNotes':
+                return action.notes
+            
+            case 'addNote':
+                return [
+                    ...state,
+                    {
+                        noteTitle: action.noteTitle,
+                        noteBody: action.noteBody
+                    }
+                ]
+
+            case 'removeNote':
+                return state.filter((note) => note.noteTitle !== action.noteTitle)
+        }
+    }
+
+    const [notes, notesDispatch] = useReducer(notesReducer, [])
     const [noteTitle, setNoteTitle] = useState('');
     const [noteBody, setNoteBody] = useState('');
 
@@ -12,14 +36,7 @@ const NoteApp = () =>
     {
         e.preventDefault();
 
-
-        setNotes([
-            ...notes, 
-            {
-            noteTitle: noteTitle,
-            noteBody: noteBody
-            }
-        ]);
+        notesDispatch({type: 'addNote', noteTitle: noteTitle, noteBody: noteBody})
 
         setNoteTitle('');
         setNoteBody('');
@@ -27,7 +44,7 @@ const NoteApp = () =>
 
     const removeNote = (noteToRemove) =>
     {
-        setNotes(notes.filter((note) => note.noteTitle !== noteToRemove));
+        notesDispatch({type: 'removeNote', note: noteToRemove});
     }
 
     // useEffect dependency, function only runs if variable change (tracked in array as second param)
@@ -35,8 +52,8 @@ const NoteApp = () =>
     useEffect(() => 
     {
         const notesData = JSON.parse(localStorage.getItem('notes'));
-        setNotes(notesData ? notesData : []);
-        console.log("This only runs once");
+
+        notesDispatch({type: 'populateNotes', notes: notesData});
     }, [])
 
     useEffect(() =>
