@@ -48,18 +48,38 @@ const NoteApp = () =>
         <div>
             <h1>Lists</h1>
             {notes.map((note) => (
-                <div key={note.noteTitle}>
-                    <h3>{note.noteTitle}</h3>
-                    <p>{note.noteBody}</p>
-                    <button onClick={() => removeNote(note.noteTitle)}>Remove</button>
-                </div>
+                <Note 
+                    key={note.noteTitle}
+                    note={note}
+                    removeNote={removeNote}
+                />
             ))}
+            <br />
             <form onSubmit={addNotes}>
                 <input placeholder='Note Title' value={noteTitle} onChange={(e) => setNoteTitle(e.target.value)} />
                 <br />
                 <textarea placeholder='Body' value={noteBody} onChange={(e) => setNoteBody(e.target.value)} />
                 <button>Add item</button>
             </form>
+        </div>
+    )
+}
+
+const Note = ({note, removeNote}) => 
+{
+    useEffect(() => {
+        console.log('Component mounted');
+
+        return () => {
+            console.log('Component unmounted');
+        }
+    }, [])
+
+    return(
+        <div style={{border: 'solid', margin: '10px', padding: '10px'}}>
+            <h3>{note.noteTitle}</h3>
+            <p>{note.noteBody}</p>
+            <button onClick={() => removeNote(note.noteTitle)}>Remove</button>
         </div>
     )
 }
