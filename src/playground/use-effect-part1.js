@@ -18,8 +18,8 @@ const NoteApp = () =>
         setNotes([
             ...notes, 
             {
-            noteTitle: noteTitle,
-            noteBody: noteBody
+                noteTitle: noteTitle,
+                noteBody: noteBody
             }
         ]);
 
