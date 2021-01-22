@@ -1,3 +1,6 @@
+# Exploring new React functionalities
+Created a simple app that allows the user to add and remove items from a list. Concepts explored and integrated include hooks (useState, useEffect, useReducer, useContext), fragments, and creating custom hooks.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
